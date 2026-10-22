@@ -64,7 +64,7 @@ The app also runs against PostgreSQL through a Spring profile.
    ```
 3. Run `CarApplication` with the `postgres` profile active, for example by setting the environment variable `SPRING_PROFILES_ACTIVE=postgres` or the program argument `--spring.profiles.active=postgres`.
 
-The `caruser` / `carpass` credentials are demo values for a local database only, and they are defined in `application-postgres.properties`. Hibernate creates the tables automatically on first run.
+The `caruser` / `carpass` credentials are demo values for a local database only, and they are defined in `application-postgres.properties`. Hibernate creates the tables automatically on the first run.
 
 ## Using the App
 
@@ -90,4 +90,4 @@ Enter a number and follow the prompts. Each car is identified by its 17-characte
 
 ## License
 
-[Add a license here, for example MIT, or state that all rights are reserved.]
+All Rights are Reserved.
