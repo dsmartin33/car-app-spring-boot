@@ -193,7 +193,6 @@ public class CarValidatorImpl implements CarValidator {
 
     @Override
     public String vin(Scanner scanner, List<Car> cars, String prompt, boolean checkDuplicate) {
-        duplicateLoop:
         while(true) {
             String input = checkEmptyString(scanner, prompt);
 
@@ -201,13 +200,9 @@ public class CarValidatorImpl implements CarValidator {
                 System.out.println("Invalid input. VIN numbers are 17 characters long, please re-enter.");
                 continue;
             }
-            if (checkDuplicate) {
-                for (Car car : cars) {
-                    if (car.getVin().equalsIgnoreCase(input)) {
-                        System.out.println("You have entered a duplicate VIN. Please re-enter.");
-                        continue duplicateLoop;
-                    }
-                }
+            if (checkDuplicate && cars.stream().anyMatch(car -> car.getVin().equalsIgnoreCase(input))) {
+                System.out.println("You have entered a duplicate VIN. Please re-enter.");
+                continue;
             }
             return input.toUpperCase();
         }

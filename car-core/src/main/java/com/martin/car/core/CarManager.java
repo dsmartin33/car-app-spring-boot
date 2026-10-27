@@ -35,7 +35,7 @@ public class CarManager {
             case ElectricCar _ -> 2;
             case SUV _ -> 3;
             case Truck _ -> 4;
-            default -> throw new IllegalStateException("Unknown car type: " + car.getClass().getSimpleName());
+            default -> throw new IllegalStateException("Unknown vehicle type: " + car.getClass().getSimpleName());
         };
     }
 
@@ -48,8 +48,8 @@ public class CarManager {
                 .findFirst();
 
         match.ifPresentOrElse(
-                car -> System.out.println("\nCar found: \n\n" + car),
-                () -> System.out.println("\nCar with VIN " + vin + " not found.\n"));
+                car -> System.out.println("\nVehicle found: \n\n" + car),
+                () -> System.out.println("\nVehicle with VIN " + vin + " not found.\n"));
 
         return match;
     }
@@ -57,11 +57,11 @@ public class CarManager {
     public void displayAllCars(List<Car> cars) {
         System.out.println("""
                 
-                Displaying all cars:
+                Displaying all vehicles:
                 """);
 
         if (cars.isEmpty()) {
-            System.out.println("No cars found.\n");
+            System.out.println("No vehicles found.\n");
             return;
         }
 
@@ -96,7 +96,7 @@ public class CarManager {
             repository.delete(car);
             cars.remove(car);
             System.out.println("""
-                    Car removed.
+                    Vehicle removed.
                     """);
         });
     }
@@ -104,7 +104,7 @@ public class CarManager {
     public void deleteAllCars(List<Car> cars) {
         System.out.println("""
                 
-                Deleting all cars:
+                Deleting all vehicle:
                 """);
 
         if (cars.isEmpty()) {
@@ -114,6 +114,6 @@ public class CarManager {
 
         repository.deleteAll();
         cars.clear();
-        System.out.println("All cars have been removed.\n");
+        System.out.println("All vehicles have been removed.\n");
     }
 }
