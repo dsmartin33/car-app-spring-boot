@@ -240,10 +240,9 @@ public class CarValidatorImpl implements CarValidator {
     public Byte menuMethod(Scanner scanner) {
         while(true) {
             String input = checkEmptyString(scanner, "Enter Option: ");
-            byte option;
 
             try {
-                option = Byte.parseByte(input);
+                byte option = Byte.parseByte(input);
                 if (option >= 1 && option <= 11) {
                     return option;
                 }
