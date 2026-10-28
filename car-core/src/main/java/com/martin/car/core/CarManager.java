@@ -44,7 +44,7 @@ public class CarManager {
         String vin = validator.vin(scanner, cars, prompt, false);
 
         Optional<Car> match = cars.stream()
-                .filter(car -> car.getVin().equals(vin))
+                .filter(car -> car.getVin().equalsIgnoreCase(vin))
                 .findFirst();
 
         match.ifPresentOrElse(
@@ -104,7 +104,7 @@ public class CarManager {
     public void deleteAllCars(List<Car> cars) {
         System.out.println("""
                 
-                Deleting all vehicle:
+                Deleting all vehicles:
                 """);
 
         if (cars.isEmpty()) {
