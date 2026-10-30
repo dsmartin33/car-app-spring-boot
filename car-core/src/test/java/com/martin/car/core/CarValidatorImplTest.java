@@ -77,7 +77,7 @@ class CarValidatorImplTest {
 
     @Test
     void vin_rejectsDuplicateWhenCheckingDuplicates() {
-        List<Car> cars = List.of(newSedan(SEDAN_VIN));
+        List<Car> cars = List.of(newSedan());
 
         // The first entry matches an existing car (in lowercase), so it must be rejected.
         String vin = validator.vin(scanner("1hgcm82633a004352", OTHER_VIN), cars, "VIN: ", true);

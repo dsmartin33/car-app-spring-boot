@@ -69,23 +69,25 @@ class CarFactoryTest {
 
     @Test
     void createSedan_rejectsVinThatAlreadyExistsAndAsksAgain() {
-        List<Car> cars = new LinkedList<>(List.of(newSedan(SEDAN_VIN)));
+        Sedan existingSedan = newSedan();
+        List<Car> cars = new LinkedList<>(List.of(existingSedan));
 
-        Sedan sedan = factory.createSedan(scanner(
+        Sedan newSedan = factory.createSedan(scanner(
                 "a", "b", "2020", "x", "y",
-                SEDAN_VIN,            // duplicate, must be rejected
-                OTHER_VIN,            // accepted
+                SEDAN_VIN,            // duplicate, will be rejected
+                OTHER_VIN,            // valid vin
                 "compact", "manual", "no", "10"
         ), validator, cars);
 
-        assertThat(sedan.getVin()).isEqualTo(OTHER_VIN);
+        assertThat(newSedan.getVin()).isEqualTo(OTHER_VIN);
     }
 
     @Test
     void createSedan_asksAgainWhenYearIsNotANumber() {
         Sedan sedan = factory.createSedan(scanner(
                 "a", "b",
-                "abc", "2020",        // first year is invalid, second is accepted
+                "abc",          // string is invalid for a year, will be rejected
+                "2020",        // valid year
                 "x", "y", SEDAN_VIN, "compact", "manual", "no", "10"
         ), validator, new LinkedList<>());
 

@@ -35,8 +35,8 @@ class CarManagerTest {
         // The mock repository returns null from save() unless we tell it to return the car it was given.
         when(repository.save(any(Car.class))).thenAnswer(invocation -> invocation.getArgument(0));
         List<Car> cars = new LinkedList<>();
-        Truck truck = newTruck(TRUCK_VIN);
-        Sedan sedan = newSedan(SEDAN_VIN);
+        Truck truck = newTruck();
+        Sedan sedan = newSedan();
 
         manager.addCar(truck, cars);
         manager.addCar(sedan, cars);
@@ -50,7 +50,7 @@ class CarManagerTest {
 
     @Test
     void loadCars_returnsCarsFromRepositorySortedByType() {
-        when(repository.findAll()).thenReturn(List.of(newTruck(TRUCK_VIN), newSedan(SEDAN_VIN)));
+        when(repository.findAll()).thenReturn(List.of(newTruck(), newSedan()));
 
         List<Car> cars = manager.loadCars();
 
@@ -61,7 +61,7 @@ class CarManagerTest {
 
     @Test
     void findCarByVin_returnsTheMatchingCar() {
-        Sedan sedan = newSedan(SEDAN_VIN);
+        Sedan sedan = newSedan();
 
         Optional<Car> found = manager.findCarByVin(scanner(SEDAN_VIN), validator, List.of(sedan));
 
@@ -70,7 +70,7 @@ class CarManagerTest {
 
     @Test
     void findCarByVin_returnsEmptyWhenNoCarHasThatVin() {
-        Optional<Car> found = manager.findCarByVin(scanner(OTHER_VIN), validator, List.of(newSedan(SEDAN_VIN)));
+        Optional<Car> found = manager.findCarByVin(scanner(OTHER_VIN), validator, List.of(newSedan()));
 
         assertThat(found).isEmpty();
     }
@@ -79,7 +79,7 @@ class CarManagerTest {
 
     @Test
     void updateCarByVin_savesTheCarAfterTheUserEditsIt() {
-        Sedan sedan = newSedan(SEDAN_VIN);
+        Sedan sedan = newSedan();
         List<Car> cars = new LinkedList<>(List.of(sedan));
 
         // VIN to look up, menu option 1 (owner's name), the new name, then menu option 11 (exit).
@@ -91,7 +91,7 @@ class CarManagerTest {
 
     @Test
     void updateCarByVin_doesNotSaveAnythingWhenVinIsNotFound() {
-        List<Car> cars = new LinkedList<>(List.of(newSedan(SEDAN_VIN)));
+        List<Car> cars = new LinkedList<>(List.of(newSedan()));
 
         manager.updateCarByVin(scanner(OTHER_VIN), validator, cars);
 
@@ -102,8 +102,8 @@ class CarManagerTest {
 
     @Test
     void deleteCarByVin_removesTheCarFromTheRepositoryAndTheList() {
-        Sedan sedan = newSedan(SEDAN_VIN);
-        Truck truck = newTruck(TRUCK_VIN);
+        Sedan sedan = newSedan();
+        Truck truck = newTruck();
         List<Car> cars = new LinkedList<>(List.of(sedan, truck));
 
         manager.deleteCarByVin(scanner(TRUCK_VIN), validator, cars);
@@ -114,7 +114,7 @@ class CarManagerTest {
 
     @Test
     void deleteCarByVin_doesNothingWhenVinIsNotFound() {
-        Sedan sedan = newSedan(SEDAN_VIN);
+        Sedan sedan = newSedan();
         List<Car> cars = new LinkedList<>(List.of(sedan));
 
         manager.deleteCarByVin(scanner(OTHER_VIN), validator, cars);
@@ -125,7 +125,7 @@ class CarManagerTest {
 
     @Test
     void deleteAllCars_clearsTheRepositoryAndTheList() {
-        List<Car> cars = new LinkedList<>(List.of(newSedan(SEDAN_VIN), newTruck(TRUCK_VIN)));
+        List<Car> cars = new LinkedList<>(List.of(newSedan(), newTruck()));
 
         manager.deleteAllCars(cars);
 
