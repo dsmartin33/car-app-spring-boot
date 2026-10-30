@@ -123,7 +123,6 @@ public class CarValidatorImpl implements CarValidator {
             if (input.equalsIgnoreCase("4WD")) {
                 input = "FOUR_WD";
             }
-
             for (DriveType type : DriveType.values()) {
                 if (type.name().equalsIgnoreCase(input)) {
                     return type;
