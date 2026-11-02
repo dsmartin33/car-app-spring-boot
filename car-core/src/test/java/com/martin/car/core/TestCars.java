@@ -17,8 +17,7 @@ final class TestCars {
 
     static Sedan newSedan() {
         return new Sedan(new CarOwner("John Smith", "123 Main St"), (short) 2020, "Toyota",
-                "Camry", SEDAN_VIN, CarSize.MidSize, TransmissionType.Automatic, "No",
-                15.1);
+                "Camry", SEDAN_VIN, CarSize.MidSize, TransmissionType.Automatic, "No", 15.1);
     }
 
     static Truck newTruck() {
