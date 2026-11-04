@@ -32,8 +32,8 @@ class CarRepositoryTest {
 
     @Test
     void savesEachCarTypeAndLoadsItBackWithItsOwnFields() {
-        repository.save(newSedan());
-        repository.save(newTruck());
+        repository.save(newSedan(SEDAN_VIN));
+        repository.save(newTruck(TRUCK_VIN));
         flushAndClear(); // forces the next query to read from the database, not from memory that Hibernate uses.
 
         List<Car> cars = repository.findAll();
@@ -60,15 +60,15 @@ class CarRepositoryTest {
 
     @Test
     void rejectsTwoCarsWithTheSameVin() {
-        repository.saveAndFlush(newSedan());
+        repository.saveAndFlush(newSedan(SEDAN_VIN));
 
-        assertThatThrownBy(() -> repository.saveAndFlush(newTruck()))
+        assertThatThrownBy(() -> repository.saveAndFlush(newTruck(SEDAN_VIN)))
                 .isInstanceOf(DataIntegrityViolationException.class);
     }
 
     @Test
     void persistsChangesMadeToAnExistingCar() {
-        Car car = repository.saveAndFlush(newSedan());
+        Car car = repository.saveAndFlush(newSedan(SEDAN_VIN));
 
         car.updateOwnersName(new Scanner("jane doe\n"), new CarValidatorImpl());
         repository.saveAndFlush(car);
@@ -79,7 +79,7 @@ class CarRepositoryTest {
 
     @Test
     void deletesCars() {
-        Car car = repository.saveAndFlush(newSedan());
+        Car car = repository.saveAndFlush(newSedan(SEDAN_VIN));
 
         repository.delete(car);
         repository.flush();
@@ -89,8 +89,8 @@ class CarRepositoryTest {
 
     @Test
     void deleteAllRemovesEveryCar() {
-        repository.save(newSedan());
-        repository.save(newTruck());
+        repository.save(newSedan(SEDAN_VIN));
+        repository.save(newTruck(TRUCK_VIN));
         repository.flush();
 
         repository.deleteAll();
@@ -111,13 +111,13 @@ class CarRepositoryTest {
                 .orElseThrow();
     }
 
-    private static Sedan newSedan() {
+    private static Sedan newSedan(String vin) {
         return new Sedan(new CarOwner("John Smith", "123 Main St"), (short) 2020, "Toyota",
-                "Camry", SEDAN_VIN, CarSize.MidSize, TransmissionType.Automatic, "No", 15.1);
+                "Camry", vin, CarSize.MidSize, TransmissionType.Automatic, "No", 15.1);
     }
 
-    private static Truck newTruck() {
+    private static Truck newTruck(String vin) {
         return new Truck(new CarOwner("Ann Lee", "2 Oak Ave"), (short) 2021, "Ford", "F-150",
-                TRUCK_VIN, CabType.Crew, "No", DriveType.FOUR_WD, (short) 9000);
+                vin, CabType.Crew, "No", DriveType.FOUR_WD, (short) 9000);
     }
 }
