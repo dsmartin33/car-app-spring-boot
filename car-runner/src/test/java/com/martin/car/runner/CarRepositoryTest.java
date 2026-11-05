@@ -34,7 +34,7 @@ class CarRepositoryTest {
     void savesEachCarTypeAndLoadsItBackWithItsOwnFields() {
         repository.save(newSedan(SEDAN_VIN));
         repository.save(newTruck(TRUCK_VIN));
-        flushAndClear(); // forces the next query to read from the database, not from memory that Hibernate uses.
+        flushAndClear();
 
         List<Car> cars = repository.findAll();
 
@@ -99,11 +99,19 @@ class CarRepositoryTest {
         assertThat(repository.count()).isZero();
     }
 
+    // flush() pushes pending changes to the database.
+    // clear() empties the cache so findAll() must read rows
+    // from the database, not from the memory that Hibernate uses.
     private void flushAndClear() {
         entityManager.flush();
         entityManager.clear();
     }
 
+    // Turns the list into a stream, a sequence of items you can
+    // run operations on.
+    // Runs a filter on each car using a lambda
+    // Finds the first car as an Optional<Car>
+    // Opens Optional and returns the car or throws exception.
     private static Car findByVin(List<Car> cars, String vin) {
         return cars.stream()
                 .filter(car -> car.getVin().equals(vin))
