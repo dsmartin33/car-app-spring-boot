@@ -24,10 +24,30 @@ public class CarManager {
         carSortByType(cars);
     }
 
+    /**
+     * Sorts the given list of cars in place by vehicle type.
+     * <p>
+     * Cars are ordered as follows: Sedan, SportsCar, ElectricCar, SUV, Truck.
+     * Cars of the same type keep their original relative order, since
+     * {@link List#sort} is a stable sort.
+     *
+     * @param cars the list to sort; modified in place
+     * @throws IllegalStateException if the list contains a car of an unrecognized type
+     */
     private void carSortByType(List<Car> cars) {
         cars.sort(Comparator.comparingInt(this::getTypeOrder));
     }
 
+    /**
+     * Returns the sort rank for a car based on its type by using an unnamed pattern variable ({@code _}).
+     * <p>
+     * Ranks are: Sedan = 0, SportsCar = 1, ElectricCar = 2, SUV = 3, Truck = 4.
+     * Lower ranks sort first.
+     *
+     * @param car the car to rank
+     * @return the sort key for the car's type, from 0 to 4
+     * @throws IllegalStateException if the car is not one of the known types
+     */
     private int getTypeOrder(Car car) {
         return switch(car) {
             case Sedan _ -> 0;
@@ -39,6 +59,15 @@ public class CarManager {
         };
     }
 
+    /**
+     * Prompts the user for a VIN and looks up the matching car (case-insensitive).
+     * Prints the car if found, or a "not found" message otherwise.
+     *
+     * @param scanner   input source for the VIN prompt
+     * @param validator validates the VIN format before searching
+     * @param cars      the list of cars to search
+     * @return the matching car, or an empty Optional if no car has that VIN
+     */
     public Optional<Car> findCarByVin(Scanner scanner, CarValidator validator, List<Car> cars) {
         String prompt = "\nEnter the 17-digit VIN number: ";
         String vin = validator.vin(scanner, cars, prompt, false);
