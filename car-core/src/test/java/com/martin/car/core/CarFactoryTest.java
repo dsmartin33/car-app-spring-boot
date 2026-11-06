@@ -34,6 +34,7 @@ class CarFactoryTest {
                 "Year: 2020",
                 "Make: Toyota",
                 "Model: Camry",
+                "VIN: 1HGCM82633A004352",
                 "Car Size: MidSize",
                 "Transmission Type: Automatic",
                 "Luxury Trim: Yes",
@@ -61,6 +62,7 @@ class CarFactoryTest {
                 "Year: 2021",
                 "Make: Ford",
                 "Model: F-150",
+                "VIN: JH4KA8260MC000000",
                 "Cab Type: Crew",
                 "Diesel Engine: No",
                 "Drive Type: 4WD",
@@ -69,17 +71,17 @@ class CarFactoryTest {
 
     @Test
     void createSedan_rejectsVinThatAlreadyExistsAndAsksAgain() {
-        Sedan existingSedan = newSedan();
-        List<Car> cars = new LinkedList<>(List.of(existingSedan));
+        Sedan firstSedan = newSedan();
+        List<Car> cars = new LinkedList<>(List.of(firstSedan));
 
-        Sedan newSedan = factory.createSedan(scanner(
+        Sedan secondSedan = factory.createSedan(scanner(
                 "a", "b", "2020", "x", "y",
                 SEDAN_VIN,            // duplicate, will be rejected
                 OTHER_VIN,            // valid vin
                 "compact", "manual", "no", "10"
         ), validator, cars);
 
-        assertThat(newSedan.getVin()).isEqualTo(OTHER_VIN);
+        assertThat(secondSedan.getVin()).isEqualTo(OTHER_VIN);
     }
 
     @Test
