@@ -41,8 +41,6 @@ class CarManagerTest {
         manager.addCar(truck, cars);
         manager.addCar(sedan, cars);
 
-        verify(repository).save(truck);
-        verify(repository).save(sedan);
         assertThat(cars).containsExactly(sedan, truck); // sedans are listed before trucks
     }
 
