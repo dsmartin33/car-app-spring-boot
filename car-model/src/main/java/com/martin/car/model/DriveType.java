@@ -1,5 +1,11 @@
 package com.martin.car.model;
 
+/**
+ * Drive configuration for an {@link SUV} or {@link Truck}.
+ * <p>
+ * Java identifiers can't start with a digit, so four-wheel drive is {@link #FOUR_WD};
+ * it is typed and displayed as {@code 4WD}.
+ */
 public enum DriveType {
     FWD,
     RWD,

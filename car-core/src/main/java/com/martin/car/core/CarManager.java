@@ -5,6 +5,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/**
+ * Loads, adds, searches, displays, updates and deletes vehicles. Persists all changes to the
+ * database through {@link CarRepository}. The in-memory list is kept sorted by type.
+ */
 @Service
 public class CarManager {
     private final CarRepository repository;
@@ -13,6 +17,11 @@ public class CarManager {
         this.repository = repository;
     }
 
+    /**
+     * Loads all saved cars from the database into a new, modifiable list sorted by type.
+     *
+     * @return a new list of all persisted cars, sorted by type
+     */
     public List<Car> loadCars() {
         List<Car> cars = new LinkedList<>(repository.findAll());
         carSortByType(cars);
@@ -83,6 +92,12 @@ public class CarManager {
         return match;
     }
 
+    /**
+     * Prints all cars under a heading for each type. Relies on the list already being sorted by
+     * type because a new heading is printed whenever the type changes (see {@link #loadCars()}).
+     *
+     * @param cars the cars to display
+     */
     public void displayAllCars(List<Car> cars) {
         System.out.println("""
                 

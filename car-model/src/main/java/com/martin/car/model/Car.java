@@ -5,6 +5,19 @@ import jakarta.persistence.*;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Abstract base entity for every vehicle managed by the application.
+ * <p>
+ * Holds the fields common to all vehicles (owner, year, make, model, VIN) and is
+ * persisted in the {@code cars} table with {@link InheritanceType#JOINED} inheritance,
+ * so each subclass stores its own fields in a separate table joined on the primary key.
+ *
+ * @see Sedan
+ * @see SportsCar
+ * @see ElectricCar
+ * @see SUV
+ * @see Truck
+ */
 @Entity
 @Table(name = "cars")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -44,6 +57,15 @@ public abstract class Car {
         return vin;
     }
 
+    /**
+     * Runs this vehicle type's interactive update menu until the user exits.
+     * <p>
+     * Changes are made on this object only; the caller must save it to persist them.
+     *
+     * @param scanner   input source for menu choices and new values
+     * @param validator validates all user input
+     * @param cars      all current vehicles
+     */
     public abstract void updateCar(Scanner scanner, CarValidator validator, List<Car> cars);
 
     public void updateOwnersName(Scanner scanner, CarValidator validator) {

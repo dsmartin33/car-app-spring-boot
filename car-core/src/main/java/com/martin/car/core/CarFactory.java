@@ -6,6 +6,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Creates each type of vehicle by prompting the user for its fields and
+ * validating every entry through the supplied {@link CarValidator}.
+ */
 @Component
 public class CarFactory {
     public Sedan createSedan(Scanner scanner, CarValidator validator, List<Car> cars) {
