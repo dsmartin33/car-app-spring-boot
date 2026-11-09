@@ -103,9 +103,9 @@ class CarRepositoryTest {
      * Forces pending changes to be written to the database, then empties the
      * persistence context.
      * <p>
-     * {@code flush()} pushes pending changes to the database.
-     * {@code clear()} empties Hibernate's first-level cache, so {@code findAll()}
-     * will read rows from the database instead of from memory.
+     * {@code flush()} pushes pending changes to the database. {@code clear()}
+     * empties Hibernate's first-level cache, so {@code findAll()} will read rows
+     * from the database instead of from memory.
      */
     private void flushAndClear() {
         entityManager.flush();
