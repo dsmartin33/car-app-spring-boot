@@ -30,7 +30,10 @@ public abstract class Car {
     @Column(name = "car_year", nullable = false)
     private short year;
 
+    @Column(nullable = false)
     private String make;
+
+    @Column(nullable = false)
     private String model;
 
     @Column(unique = true, nullable = false, length = 17)
