@@ -11,7 +11,6 @@ import java.util.Scanner;
  * Holds the fields common to all vehicles (owner, year, make, model, VIN) and is
  * persisted in the {@code cars} table with {@link InheritanceType#JOINED} inheritance,
  * so each subclass stores its own fields in a separate table joined on the primary key.
- *
  */
 @Entity
 @Table(name = "cars")
