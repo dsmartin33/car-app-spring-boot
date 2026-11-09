@@ -12,11 +12,6 @@ import java.util.Scanner;
  * persisted in the {@code cars} table with {@link InheritanceType#JOINED} inheritance,
  * so each subclass stores its own fields in a separate table joined on the primary key.
  *
- * @see Sedan
- * @see SportsCar
- * @see ElectricCar
- * @see SUV
- * @see Truck
  */
 @Entity
 @Table(name = "cars")
