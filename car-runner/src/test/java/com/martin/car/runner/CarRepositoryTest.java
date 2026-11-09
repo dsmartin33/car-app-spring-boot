@@ -72,7 +72,7 @@ class CarRepositoryTest {
 
         car.updateOwnersName(new Scanner("jane doe\n"), new CarValidatorImpl());
         repository.saveAndFlush(car);
-        flushAndClear();
+        entityManager.clear();
 
         assertThat(repository.findAll().getFirst().toString()).contains("Owner's Name: Jane Doe");
     }
