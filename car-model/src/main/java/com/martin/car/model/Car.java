@@ -21,10 +21,8 @@ public abstract class Car {
     private Long id;
 
     @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "name", column = @Column(name = "owner_name", nullable = false)),
-            @AttributeOverride(name = "address", column = @Column(name = "owner_address", nullable = false))
-    })
+    @AttributeOverride(name = "name", column = @Column(name = "owner_name", nullable = false))
+    @AttributeOverride(name = "address", column = @Column(name = "owner_address", nullable = false))
     private CarOwner owner;
 
     @Column(name = "car_year", nullable = false)
