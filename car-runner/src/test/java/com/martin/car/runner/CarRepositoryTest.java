@@ -99,19 +99,32 @@ class CarRepositoryTest {
         assertThat(repository.count()).isZero();
     }
 
-    // flush() pushes pending changes to the database.
-    // clear() empties the cache so findAll() must read rows
-    // from the database, not from the memory that Hibernate uses.
+    /**
+     * Forces pending changes to be written to the database, then empties the
+     * persistence context.
+     * <p>
+     * {@code flush()} pushes pending changes to the database.
+     * {@code clear()} empties Hibernate's first-level cache, so a later
+     * {@code findAll()} must read rows from the database instead of from memory.
+     */
     private void flushAndClear() {
         entityManager.flush();
         entityManager.clear();
     }
 
-    // Turns the list into a stream, a sequence of items you can
-    // run operations on.
-    // Runs a filter on each car using a lambda
-    // Finds the first car as an Optional<Car>
-    // Opens Optional and returns the car or throws exception.
+    /**
+     * Finds the car with the given VIN in a list of cars.
+     * <p>
+     * Turns the list into a stream, a sequence of items you can run operations
+     * on. A lambda filters the stream to cars whose VIN matches. {@code findFirst()}
+     * returns the first match as an {@code Optional<Car>}, and {@code orElseThrow()}
+     * opens the {@code Optional} and returns the car, or throws if it is empty.
+     *
+     * @param cars the cars to search
+     * @param vin  the VIN to look for
+     * @return the first car whose VIN equals {@code vin}
+     * @throws java.util.NoSuchElementException if no car in the list has that VIN
+     */
     private static Car findByVin(List<Car> cars, String vin) {
         return cars.stream()
                 .filter(car -> car.getVin().equals(vin))
