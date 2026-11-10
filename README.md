@@ -1,6 +1,6 @@
 # Car Management Application
 
-A console application for managing a car inventory, built with Java and Spring Boot. Cars are saved to a relational database with Spring Data JPA, so your data is still there the next time you run the app.
+A console application for managing a car inventory built with Java and Spring Boot. Cars are saved to a relational database with Spring Data JPA so your data persists the next time you run the app.
 
 ## Features
 
@@ -24,8 +24,8 @@ A console application for managing a car inventory, built with Java and Spring B
 
 | Module | Purpose |
 | --- | --- |
-| `car-model` | Domain classes (`Car` and its subclasses, `CarOwner`, enums) and the `CarValidator` interface |
-| `car-core` | Business logic: `CarFactory`, `CarManager`, `CarValidatorImpl`, and the `CarRepository` |
+| `car-model` | Domain classes (`Car` and its subclasses, `CarOwner`, and enums) and the `CarValidator` interface |
+| `car-core` | Business logic (`CarFactory`, `CarManager`, `CarValidatorImpl`, and the `CarRepository`) |
 | `car-runner` | Application entry point (`CarApplication`) and the console menu (`CarConsole`) |
 
 ## Running the App
@@ -44,13 +44,13 @@ By default the app uses an embedded H2 database, so there is nothing to install 
    ```
    mvn clean install
    ```
-4. Open the project in your IDE and run `CarApplication` (in `car-runner`, package `com.martin.car.runner`).
+4. Open the project in your IDE and run `CarApplication` (located under `car-runner`, package `com.martin.car.runner`).
 
 H2 stores its data in a `data/` folder in the working directory, so cars you add are still there after a restart.
 
 ### Using PostgreSQL (optional)
 
-The app also runs against PostgreSQL through a Spring profile.
+The app also runs using PostgreSQL through a Spring profile.
 
 1. Install and start PostgreSQL (macOS with Homebrew shown):
    ```
@@ -62,7 +62,7 @@ The app also runs against PostgreSQL through a Spring profile.
    psql postgres -c "CREATE USER caruser WITH PASSWORD 'carpass';"
    psql postgres -c "CREATE DATABASE cardb OWNER caruser;"
    ```
-3. Run `CarApplication` using the `postgres` profile for Active Profiles, or by setting the Environment Variable to `SPRING_PROFILES_ACTIVE=postgres`, or the Program Argument to `--spring.profiles.active=postgres`.
+3. Run the `CarApplication` using the `postgres` profile for Active Profiles, or by setting the Environment Variable to `SPRING_PROFILES_ACTIVE=postgres`, or the Program Argument to `--spring.profiles.active=postgres`.
 
 The `caruser` / `carpass` credentials are demo values for a local database only, and they are defined in `application-postgres.properties`. Hibernate creates the tables automatically on the first run.
 
@@ -71,22 +71,34 @@ The `caruser` / `carpass` credentials are demo values for a local database only,
 The main menu offers these options:
 
 ```
-1. Add Sedan             7. Display all cars
-2. Add Sports Car        8. Update car by VIN
-3. Add Electric Car      9. Delete car by VIN
-4. Add SUV              10. Delete all cars
-5. Add Truck            11. Exit
+Welcome to the Car Main Menu.
+Please pick an option below.
+
+*** Main Menu ***
+
+1. Add Sedan
+2. Add Sports Car
+3. Add Electric Car
+4. Add SUV
+5. Add Truck
 6. Search car by VIN
+7. Display all cars
+8. Update car by VIN
+9. Delete car by VIN
+10. Delete all cars
+11. Exit
+
+Enter Option:
 ```
 
 Enter a number and follow the prompts. Each car is identified by its 17-character VIN, which must be unique.
 
 ## Design Notes
 
-- **Joined-table inheritance.** `Car` is an abstract JPA entity and each car type has its own table, which avoids a single wide table full of empty columns.
-- **Embedded owner.** `CarOwner` is a Java record mapped as an embeddable, so the owner's name and address are stored as columns on the car's table.
-- **Breaking a circular dependency.** The `CarValidator` interface lives in the model module and its implementation lives in the core module, so the modules don't depend on each other in a cycle.
-- **In-memory working copy.** The list of cars is loaded from the database at startup, and every add, update, and delete is written through to the database.
+- **Joined-table inheritance.** The `Car` class is an abstract JPA entity and each car type has its own table, which avoids a single wide table full of empty columns.
+- **Embedded owner.** `CarOwner` is a Java record that is mapped as an embeddable, so the owner's name and address are stored as columns in the car's table.
+- **Breaking a circular dependency.** The `CarValidator` interface lives in the `car-model` module and its implementation lives in the `car-core` module, so the modules don't depend on each other in a cycle.
+- **In-memory working copy.** The list of cars is loaded from the database at startup, and every create, add, update, and delete is written to the database and updated in the list.
 
 ## License
 
