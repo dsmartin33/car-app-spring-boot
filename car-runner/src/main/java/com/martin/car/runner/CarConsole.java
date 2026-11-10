@@ -40,11 +40,11 @@ public class CarConsole implements CommandLineRunner {
             System.out.println("""
                     *** Main Menu ***
                     
-                    1. Add Sedan
-                    2. Add Sports Car
-                    3. Add Electric Car
-                    4. Add SUV
-                    5. Add Truck
+                    1. Create Sedan
+                    2. Create Sports Car
+                    3. Create Electric Car
+                    4. Create SUV
+                    5. Create Truck
                     6. Search car by VIN
                     7. Display all cars
                     8. Update car by VIN
