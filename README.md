@@ -96,7 +96,7 @@ Enter a number and follow the prompts. Each car is identified by its 17-characte
 ## Design Notes
 
 - **Joined-table inheritance.** The `Car` class is an abstract JPA entity and each car type has its own table, which avoids a single wide table full of empty columns.
-- **Embedded owner.** `CarOwner` is a Java record that is mapped as an embeddable, so the owner's name and address are stored as columns in the cars table.
+- **Embedded owner.** `CarOwner` is a Java record that is mapped as an embeddable, so the owner's name and address are stored as columns in the `cars` table.
 - **Breaking a circular dependency.** The `CarValidator` interface lives in the `car-model` module and its implementation lives in the `car-core` module, so the modules don't depend on each other in a cycle.
 - **In-memory working copy.** The list of cars is loaded from the database at startup, and every create, add, update, and delete is written to the database and updated in the list.
 
