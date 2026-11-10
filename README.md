@@ -62,7 +62,7 @@ The app also runs against PostgreSQL through a Spring profile.
    psql postgres -c "CREATE USER caruser WITH PASSWORD 'carpass';"
    psql postgres -c "CREATE DATABASE cardb OWNER caruser;"
    ```
-3. Run `CarApplication` with the `postgres` profile active, for example by setting the environment variable `SPRING_PROFILES_ACTIVE=postgres` or the program argument `--spring.profiles.active=postgres`.
+3. Run `CarApplication` using the `postgres` profile for Active Profiles, or by setting the Environment Variable to `SPRING_PROFILES_ACTIVE=postgres`, or the Program Argument to `--spring.profiles.active=postgres`.
 
 The `caruser` / `carpass` credentials are demo values for a local database only, and they are defined in `application-postgres.properties`. Hibernate creates the tables automatically on the first run.
 
