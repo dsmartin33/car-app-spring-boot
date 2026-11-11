@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 @Entity
 @Table(name = "trucks")
-public final class Truck extends Car {
+public class Truck extends Car {
 
     @Enumerated(EnumType.STRING)
     private CabType cabType;
@@ -19,7 +19,7 @@ public final class Truck extends Car {
 
     private short towingCapacity;
 
-    public Truck() {
+    protected Truck() {
     }
 
     public Truck(CarOwner owner, short year, String make, String model, String vin, CabType cabType, String dieselEngine,

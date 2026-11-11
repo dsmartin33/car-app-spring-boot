@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 @Entity
 @Table(name = "electric_cars")
-public final class ElectricCar extends Car {
+public class ElectricCar extends Car {
 
     private short batteryCapacity;
 
@@ -19,7 +19,7 @@ public final class ElectricCar extends Car {
     private String fastCharging;
     private String pluginHybrid;
 
-    public ElectricCar() {
+    protected ElectricCar() {
     }
 
     public ElectricCar(CarOwner owner, short year, String make, String model, String vin, short batteryCapacity,

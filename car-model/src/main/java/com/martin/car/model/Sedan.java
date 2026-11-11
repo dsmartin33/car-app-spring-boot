@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 @Entity
 @Table(name = "sedans")
-public final class Sedan extends Car {
+public class Sedan extends Car {
 
     @Enumerated(EnumType.STRING)
     private CarSize carSize;
@@ -18,7 +18,7 @@ public final class Sedan extends Car {
     private String luxuryTrim;
     private double trunkSize;
 
-    public Sedan() {
+    protected Sedan() {
     }
 
     public Sedan(CarOwner owner, short year, String make, String model, String vin, CarSize carSize,

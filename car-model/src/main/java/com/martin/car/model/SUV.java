@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 @Entity
 @Table(name = "suvs")
-public final class SUV extends Car {
+public class SUV extends Car {
 
     private short seatingCapacity;
     private double cargoCapacity;
@@ -17,7 +17,7 @@ public final class SUV extends Car {
 
     private String offRoadPackage;
 
-    public SUV() {
+    protected SUV() {
     }
 
     public SUV(CarOwner owner, short year, String make, String model, String vin, short seatingCapacity,

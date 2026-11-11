@@ -8,14 +8,14 @@ import java.util.Scanner;
 
 @Entity
 @Table(name = "sports_cars")
-public final class SportsCar extends Car {
+public class SportsCar extends Car {
 
     private short horsepower;
     private double zeroToSixtyTime;
     private short topSpeed;
     private String turbocharged;
 
-    public SportsCar() {
+    protected SportsCar() {
     }
 
     public SportsCar(CarOwner owner, short year, String make, String model, String vin,  short horsepower,
