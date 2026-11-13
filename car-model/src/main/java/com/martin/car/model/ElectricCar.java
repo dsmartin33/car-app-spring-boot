@@ -1,8 +1,6 @@
 package com.martin.car.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -11,12 +9,16 @@ import java.util.Scanner;
 @Table(name = "electric_cars")
 public class ElectricCar extends Car {
 
+    @Column(nullable = false)
     private short batteryCapacity;
 
     @Column(name = "range_miles")
     private short range;
 
+    @Column(nullable = false)
     private String fastCharging;
+
+    @Column(nullable = false)
     private String pluginHybrid;
 
     protected ElectricCar() {

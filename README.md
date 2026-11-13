@@ -4,12 +4,13 @@ A console application for managing a car inventory built with Java and Spring Bo
 
 ## Features
 
-- Add five types of cars: Sedan, Sports Car, Electric Car, SUV, and Truck, each with its own type-specific fields
+- Add five types of cars: Sedan, Sports Car, Electric Car, SUV, and Truck.
+- Each car has its own type-specific fields
 - Search for a car by VIN
 - Display all cars, grouped by type
-- Update any field of a car, using a menu specific to that car type
+- Update any field of a car using a menu specific to that car type
 - Delete a car by VIN, or delete all cars
-- Input validation for every prompt: 17-character VINs with duplicate detection, Yes/No answers, enum choices (transmission, drive type, cab size, car size), and numeric fields
+- Input validation for every prompt: 17-character VINs with duplicate detection, Yes/No answers, numeric fields, and enum choices (transmission type, drive type, cab size, and car size)
 - Data persists between runs
 
 ## Tech Stack
@@ -17,6 +18,7 @@ A console application for managing a car inventory built with Java and Spring Bo
 - Java 25
 - Spring Boot 4.1.1
 - Spring Data JPA with Hibernate
+- Flyway (versioned database migrations)
 - H2 (default) and PostgreSQL (optional)
 - Maven (multi-module)
 
@@ -25,8 +27,8 @@ A console application for managing a car inventory built with Java and Spring Bo
 | Module | Purpose |
 | --- | --- |
 | `car-model` | Domain classes (`Car` and its subclasses, `CarOwner`, and enums) and the `CarValidator` interface |
-| `car-core` | Business logic (`CarFactory`, `CarManager`, `CarValidatorImpl`, and the `CarRepository`) |
-| `car-runner` | Application entry point (`CarApplication`) and the console menu (`CarConsole`) |
+| `car-core` | Business logic (`CarFactory`, `CarManager`, `CarValidatorImpl`, and `CarRepository`) |
+| `car-runner` | Application entry point (`CarApplication`), the console menu (`CarConsole`), and the Flyway migrations ('src/main/resources/db/migration')|
 
 ## Running the App
 
@@ -44,9 +46,9 @@ By default the app uses an embedded H2 database, so there is nothing to install 
    ```
    mvn clean install
    ```
-4. Open the project in your IDE and run `CarApplication` (located under `car-runner`, package `com.martin.car.runner`).
+4. Open the project in your IDE and run `CarApplication` (located under the `car-runner` module, in the `com.martin.car.runner` package).
 
-H2 stores its data in a `data/` folder in the working directory, so cars you add are still there after a restart.
+The schema is created automatically on the first run by Flyway. H2 stores its data in a `data/` folder in the working directory.
 
 ### Using PostgreSQL (optional)
 
@@ -64,7 +66,7 @@ The app also runs using PostgreSQL through a Spring profile.
    ```
 3. Run the `CarApplication` using the `postgres` profile for Active Profiles, or by setting the Environment Variable to `SPRING_PROFILES_ACTIVE=postgres`, or the Program Argument to `--spring.profiles.active=postgres`.
 
-The `caruser` / `carpass` credentials are demo values for a local database only, and they are defined in `application-postgres.properties`. Hibernate creates the tables automatically on the first run.
+The `caruser` / `carpass` credentials are demo values for a local database only and they are defined in `application-postgres.properties`. Flyway creates the tables automatically on the first run so the database needs to exist and be empty first.
 
 ## Using the App
 
@@ -98,6 +100,7 @@ Enter a number and follow the prompts. Each car is identified by its 17-characte
 - **Joined-table inheritance.** The `Car` class is an abstract JPA entity and each car type has its own table, which avoids a single wide table full of empty columns.
 - **Embedded owner.** `CarOwner` is a Java record that is mapped as an embeddable, so the owner's name and address are stored as columns in the `cars` table.
 - **Breaking a circular dependency.** The `CarValidator` interface lives in the `car-model` module and its implementation lives in the `car-core` module, so the modules don't depend on each other in a cycle.
+- **Versioned schema migrations.** Flyway builds the database from SQL files and Hibernate verifies that the entities match the database tables at startup. This migration runs on both H2 and PostgreSQL.
 - **In-memory working copy.** The list of cars is loaded from the database at startup, and every create, update, and delete is written to the database and updated in the list.
 
 ## License

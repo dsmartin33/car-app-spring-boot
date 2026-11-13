@@ -10,12 +10,17 @@ import java.util.Scanner;
 public class Sedan extends Car {
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private CarSize carSize;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TransmissionType transmissionType;
 
+    @Column(nullable = false)
     private String luxuryTrim;
+
+    @Column(nullable = false)
     private double trunkSize;
 
     protected Sedan() {

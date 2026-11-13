@@ -1,7 +1,6 @@
 package com.martin.car.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -10,9 +9,16 @@ import java.util.Scanner;
 @Table(name = "sports_cars")
 public class SportsCar extends Car {
 
+    @Column(nullable = false)
     private short horsepower;
+
+    @Column(nullable = false)
     private double zeroToSixtyTime;
+
+    @Column(nullable = false)
     private short topSpeed;
+
+    @Column(nullable = false)
     private String turbocharged;
 
     protected SportsCar() {

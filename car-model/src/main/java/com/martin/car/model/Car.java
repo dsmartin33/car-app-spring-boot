@@ -16,6 +16,7 @@ import java.util.Scanner;
 @Table(name = "cars")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Car {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

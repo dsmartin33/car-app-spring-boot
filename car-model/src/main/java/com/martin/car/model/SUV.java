@@ -9,12 +9,17 @@ import java.util.Scanner;
 @Table(name = "suvs")
 public class SUV extends Car {
 
+    @Column(nullable = false)
     private short seatingCapacity;
+
+    @Column(nullable = false)
     private double cargoCapacity;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private DriveType driveType;
 
+    @Column(nullable = false)
     private String offRoadPackage;
 
     protected SUV() {

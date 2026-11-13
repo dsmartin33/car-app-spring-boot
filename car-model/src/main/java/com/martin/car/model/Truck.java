@@ -10,13 +10,17 @@ import java.util.Scanner;
 public class Truck extends Car {
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private CabType cabType;
 
+    @Column(nullable = false)
     private String dieselEngine;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private DriveType driveType;
 
+    @Column(nullable = false)
     private short towingCapacity;
 
     protected Truck() {
