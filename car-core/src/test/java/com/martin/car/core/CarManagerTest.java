@@ -84,7 +84,7 @@ class CarManagerTest {
         manager.updateCarByVin(scanner(SEDAN_VIN, "1", "jane doe", "11"), validator, cars);
 
         verify(repository).save(sedan);
-        assertThat(sedan.toString()).contains("Owner's Name: Jane Doe");
+        assertThat(sedan.getOwner().name()).isEqualTo("Jane Doe");
     }
 
     @Test

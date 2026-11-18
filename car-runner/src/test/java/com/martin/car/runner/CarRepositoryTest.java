@@ -118,18 +118,19 @@ class CarRepositoryTest {
      * Turns the list into a stream, a sequence of items you can run operations
      * on. A lambda filters the stream to cars whose VIN matches. {@code findFirst()}
      * returns the first match as an {@code Optional<Car>}, and {@code orElseThrow()}
-     * opens the {@code Optional} and returns the car, or throws if it is empty.
+     * opens the {@code Optional} and returns the car, or throws an {@code AssertionError}
+     * if it is empty.
      *
      * @param cars the cars to search
      * @param vin  the VIN to look for
      * @return the first car whose VIN equals {@code vin}
-     * @throws java.util.NoSuchElementException if no car in the list has that VIN
+     * @throws AssertionError if no car in the list has that VIN
      */
     private static Car findByVin(List<Car> cars, String vin) {
         return cars.stream()
                 .filter(car -> car.getVin().equals(vin))
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(() -> new AssertionError("No car with VIN " + vin + "found"));
     }
 
     private static Sedan newSedan(String vin) {

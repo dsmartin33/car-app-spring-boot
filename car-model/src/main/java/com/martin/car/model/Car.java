@@ -49,6 +49,14 @@ public abstract class Car {
         this.vin = vin;
     }
 
+    public CarOwner getOwner() {
+        return owner;
+    }
+
+    public Short getYear() {
+        return year;
+    }
+
     public String getVin() {
         return vin;
     }

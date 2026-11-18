@@ -93,6 +93,6 @@ class CarFactoryTest {
                 "x", "y", SEDAN_VIN, "compact", "manual", "no", "10"
         ), validator, new LinkedList<>());
 
-        assertThat(sedan.toString()).contains("Year: 2020");
+        assertThat(sedan.getYear()).isEqualTo((short)2020);
     }
 }
